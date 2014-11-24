@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+        <title>#{msg.dragons}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <f:metadata>
+        <f:viewParam name="caveId" value="#{viewCave.caveId}" required="true" id="caveId" />
+        <f:event type="preRenderView" listener="#{viewCave.init()}"/>
+    </f:metadata>
+    <body>
+        <ui:composition template="/templates/main.xhtml">
+            <ui:define name="content">
+                
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{msg.surface}:" for="surface" />
+                    <h:outputText id="surface" value="#{viewCave.cave.surface}" />
+                </h:panelGrid>
+                
+                <h:dataTable value="#{viewCave.cave.dragons}" var="dragon" >
+                    <h:column>
+                        <h:outputLabel value="#{msg.name}:" />
+                        <h:outputText value="#{dragon.name}" />
+                    </h:column>
+                    <h:column>
+                        <h:outputLabel value="#{msg.gold}:" />
+                        <h:outputText value="#{dragon.gold}" />
+                    </h:column>
+                    <h:column>
+                        <h:outputLabel value="#{msg.color}:" />
+                        <h:outputText value="#{dragon.color}" />
+                    </h:column>
+                </h:dataTable>
+                
+                <h:button value="#{msg.back}" outcome="list_caves.xhtml" />
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

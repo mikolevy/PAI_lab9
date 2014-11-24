@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <f:metadata>
+        <f:viewParam name="dragonId" value="#{viewDragon.dragonId}" required="true" id="dragonId" />
+        <f:event type="preRenderView" listener="#{viewDragon.init()}"/>
+    </f:metadata>
+    
+    <body>
+        <ui:composition template="/templates/main.xhtml">
+            
+            <ui:define name="head">
+                <title>#{msg.dragons}</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+            </ui:define>
+            
+            <ui:define name="content">
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{msg.name}:"/>
+                    <h:outputText value="#{viewDragon.dragon.name}"/>
+                    <h:outputLabel value="#{msg.gold}:"/>
+                    <h:outputText value="#{viewDragon.dragon.gold}"/>
+                    <h:outputLabel value="#{msg.color}:"/>
+                    <h:outputText value="#{viewDragon.dragon.color}"/>
+                    <h:outputText value="#{msg.cave}"/>
+                    <h:outputText value="#{viewDragon.dragon.cave.surface}"/>
+                </h:panelGrid>
+                <h:button value="#{msg.back}" outcome="list_caves.xhtml"/>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

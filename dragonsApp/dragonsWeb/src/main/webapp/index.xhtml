@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition template="/templates/main.xhtml">
+            <ui:define name="head">
+                <title>#{msg.dragons}</title>
+            </ui:define>
+            <ui:define name="content">
+                <p:socket channel="/notifications">
+                    <p:ajax event="message" update="@all"/>
+                </p:socket>
+                <h:link outcome="list_caves.xhtml" value="#{msg.dragons}"/>
+                <h:form>
+                    <h:commandButton value="#{msg.dragons}FC" action="#{frontController.processRequest('caves', '', '')}" />
+                </h:form>
+                <h:form id="form">
+                    <p:dataTable value="#{listBest.dragons}" var="dragon" id="table2">
+                            <p:column> <h:outputText value="#{dragon.name}"/> </p:column>
+                            <p:column> <h:outputText value="#{dragon.gold}"/> </p:column>
+                        </p:dataTable>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

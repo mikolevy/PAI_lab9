@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <head>
+        <title>#{msg.dragons}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    
+    <f:metadata>
+        <f:viewParam name="dragonId" value="#{editDragon.dragonId}" />
+        <f:event type="preRenderView" listener="#{editDragon.init()}" />
+    </f:metadata>
+    
+    <body>
+        
+        <ui:composition template="/templates/main.xhtml">
+            
+            <ui:define name="content">
+                <h:form>
+                    <h:panelGrid columns="2">
+                        <h:outputLabel value="#{msg.name}:" for="dragonName" />
+                        <h:inputText id="dragonName" value="#{editDragon.dragon.name}"  disabled="true" />
+                        
+                        <h:outputLabel value="#{msg.gold}:" for="dragonGold" />
+                        <h:inputText id="dragonGold" value="#{editDragon.dragon.gold}" />
+                        
+                        <h:outputLabel value="#{msg.color}:" for="dragonColor" />
+                        <h:selectOneMenu id="dragonColor" value="#{editDragon.dragon.color}">
+                            <f:selectItems value="#{editDragon.colorsAsSelectItems}" />
+                        </h:selectOneMenu>
+                        
+                        <h:outputLabel value="#{msg.cave}:" for="dragonCave" />
+                        <h:selectOneMenu id="dragonCave" value="#{editDragon.cave}" converter="#{caveConverter}">
+                            <f:selectItems value="#{editDragon.cavesAsSelectItems}" />
+                        </h:selectOneMenu>
+                    </h:panelGrid>
+                    <h:commandButton value="#{msg.save}" action="#{editDragon.saveDragon()}" />
+                    <h:commandButton value="Wstecz" action="edit_dragon.xhtml" />
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <head>
+        <title>#{msg.dragons}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <ui:composition template="/templates/main.xhtml">
+             
+            <ui:define name="content">
+                <h:form id="form">
+                <p:dataTable value="#{listCaves.caves}" var="cave" id="table">
+                    <p:column> <h:outputText value="#{cave.id}"/> </p:column>
+                    <p:column> <h:outputText value="#{cave.surface}"/> </p:column>
+                    <p:column>
+                        
+                        <p:dataTable value="#{cave.dragons}" var="dragon" id="table2">
+                            <p:column> <h:outputText value="#{dragon.name}"/> </p:column>
+                            <p:column> <h:outputText value="#{dragon.gold}"/> </p:column>
+                            <p:column> 
+                               
+                                    <h:button value="#{msg.showDragon}" outcome="view_dragon.xhtml">
+                                        <f:param name="dragonId" value="#{dragon.id}" />
+                                    </h:button>
+                                <p:poll interval="3" widgetVar="poll" autoStart="false" listener="#{listCaves.updateDragons}" stop="#{listCaves.removeDragonDone}" update=":form:table" /> 
+                                    <p:commandButton value="Usuń" process="@this" update=":form:table" actionListener="#{listCaves.removeDragon(dragon)}"  oncomplete="PF('poll').start();/*poll.start();*/"/>
+                                    <h:button value="#{msg.edit}" outcome="edit_dragon.xhtml">
+                                        <f:param name="dragonId" value="#{dragon.id}" />
+                                    </h:button>
+
+                            </p:column>
+                        </p:dataTable>
+                        
+                    </p:column>
+                    <p:column>
+                        <h:button value="#{msg.showCave}" outcome="view_cave.xhtml">
+                            <f:param name="caveId" value="#{cave.id}" />
+                        </h:button>
+                    </p:column>
+                    <p:column>
+                        <h:button value="#{msg.editCave}" outcome="edit_cave.xhtml">
+                            <f:param name="caveId" value="#{cave.id}" />
+                        </h:button>
+                    </p:column>
+                    <p:column>
+            
+                            <h:commandButton value="#{msg.remove}" action="#{listCaves.removeCave(cave)}" />
+                            <h:commandButton value="PokażFC" action="#{frontController.processRequest('cave', '', cave.id.toString())}" />
+                        
+                    </p:column>
+                </p:dataTable>
+                    <h:commandButton value="Wstecz" action="#{frontController.processRequest('first', '', '')}" />
+                    <h:commandButton value="Podatek" action="#{frontController.processRequest('caves', 'podatek', '')}" />
+                </h:form>
+                
+                <h:button value="#{msg.newCave}" outcome="edit_cave.xhtml" />
+                <h:button value="#{msg.newDragon}" outcome="edit_dragon.xhtml" />
+                <!-- <h:form>
+                        <h:inputText id="kas"
+                    </h:form>-->
+                    
+            </ui:define>
+        </ui:composition>
+    </body>
+</html>

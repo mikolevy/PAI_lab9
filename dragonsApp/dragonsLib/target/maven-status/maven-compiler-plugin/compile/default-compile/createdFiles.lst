@@ -1,0 +1,5 @@
+mikolevy/dragonslib/entities/Dragon.class
+mikolevy/dragonslib/entities/Color.class
+mikolevy/dragonslib/events/ChangeOnDragonList.class
+mikolevy/dragonslib/entities/Cave.class
+mikolevy/dragonslib/events/DragonsChanged.class
